@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../favicon.ico">
 
-    <title>Blog Template for Bootstrap</title>
+    <title>PDO and MySQL guide!</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../../../libraries/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet">
@@ -41,8 +41,8 @@
     <div class="container">
 
       <div class="blog-header">
-        <h1 class="blog-title">PDO and MySQL Guide for Beginners!</h1>
-        <p class="lead blog-description">The unofficial beginner's guide to PHP Data Objects and MySQL.</p>
+        <h1 class="blog-title">Database and Page Setup!</h1>
+        <p class="lead blog-description">You'll setup a table, a page, and check your version of PHP.</p>
       </div>
 
       <div class="row">
@@ -50,26 +50,66 @@
         <div class="col-sm-8 blog-main">
 
           <div class="blog-post">
-            <h2 class="blog-post-title">Getting Started</h2>
-            <!--<p class="blog-post-meta">January 1, 2014 by <a href="#">Mark</a></p>-->
+            <h2 class="blog-post-title">Let's dive in!</h2>
+            
 
-            <p>So, you want to know how to use PDO's? You want to know how to use them in conjunction with MySQL too?
-				You don't even know what PDO stands for? Well you've come to the right place. In this guide we will 
-				cover all of the above and by the end, you'll have a great time playing with prepared SQL statements,
-				and make gorgeous interactive web pages.
+            <p>Let's begin this turtorial by ensuring you have a web database table we can
+				use for testing, a web page, and a current version of PHP.
 			</p>
             <hr>
-            <p>There is a few things you will need to have set up in advance in order for this guide to run smoothly.
-				We will cover the physical requirements on the <a href="setup.html">Setup Page</a>, however, there are some things
-				not mentioned there. You will need:
+			<h2>MySQL table</h2>
+            <p>Let's begin by going ahead to our chosen MySQL interface. My preference is of course
+				the well renowned PHPMyAdmin, for its simple graphical interface, however any will 
+				work for our purpose, as long as you are able to execute MySQL commands. Feel free
+				to use the command line interafce for that.
 			</p>
-            <blockquote>
-              <p>Access to a web database</p>
-			  <p>Basic understanding of PHP</p>
-			  <p>Basic understanding of MySQL</p>
-			  <p>A web page to test these things on.</p>
-            </blockquote>
-            <p>With all these things in place, let's head over to the Setup Page and get started!</p>
+			<p>
+			Go to your chosen SQL command executor and run the following code to create the table we'll
+			be using to produce desired outputs.
+			</p>
+			<pre><code>CREATE TABLE Demotable(
+			id INT(6) AUTO_INCREMENT PRIMARY KEY,
+			name VARCHAR(30) NOT NULL,
+			location VARCHAR(30) NOT NULL,
+			color VARCHAR(30) NOTNULL
+			)</code></pre>
+            <p>You should now have a table successfully created in your database! Let's go ahead
+			and create a few entries so we have data to play around with.
+			</p>
+			<p>Execute something similar to the following commands to get some data in there!</p>
+			<pre><code>INSERT INTO Demotable (name, location, color) VALUES ('Marth', 'Fire Emblem', 'Blue')
+
+INSERT INTO Demotable (name, location, color) VALUES ('Falcon', 'Zero-FX', 'NavyBlue')
+
+INSERT INTO Demotable (name, location, color) VALUES ('Fox', 'Corneria', 'Orange')
+			</code></pre>
+			<p>
+			Now you got some Sweet-ass data in the table! If everything ran without error here,
+			you're ready for the next section!
+			</p>
+			<h2>Your PHP Test Page</h2>
+            <p>A simple procedure here, just go ahead and navigate to your webspace, and 
+			create a php file, we'll name it, testpage.php. For now you can add one line and navigate to
+			its location to make sure everything is correct.
+			</p>
+			<pre><code>echo 'I am alive and working! Woohoo!';</code></pre>
+			<p>
+			Navigate to your new page at http://www.yourdomainspace.com/yourpath/testpage.php. If you
+			can see the statement then we are set for the next step!
+			</p>
+			<h2>Check your PHP Version</h2>
+            <p>In order for you to have access to the correct PDO library, you will need the most
+			recent version of PHP installed. To keep this guide timeless, I won't say what version
+			I am running, but I will say that if your version is older than 5.1, you will not have
+			access to the PDO library. To check your PHP version, add the following code line to your
+			testpage.php and navigate to our page again.
+			
+			</p>
+			<pre><code>echo 'Current PHP version: ' . phpversion();</code></pre>
+			<p>Given you entered everything correctly, your PHP version should now be displayed
+			by your first statement! Compare this to the internets most recent version of PHP, and
+			proceed to update if possible. Once this is all done, let's get started using these PDO's!
+			</p>
            </div><!-- /.blog-post -->
 
           <nav>
