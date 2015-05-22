@@ -41,8 +41,8 @@
     <div class="container">
 
       <div class="blog-header">
-        <h1 class="blog-title">Database and Page Setup!</h1>
-        <p class="lead blog-description">You'll setup a table, a page, and check your version of PHP.</p>
+        <h1 class="blog-title">Database Connection!</h1>
+        <p class="lead blog-description">Now you're all set up, let's start by connecting to your database.</p>
       </div>
 
       <div class="row">
@@ -50,73 +50,60 @@
         <div class="col-sm-8 blog-main">
 
           <div class="blog-post">
-            <h2 class="blog-post-title">Let's dive in!</h2>
+            <h2 class="blog-post-title">How to get connected</h2>
             
 
-            <p>Let's begin this turtorial by ensuring you have a web database table we can
-				use for testing, a web page, and a current version of PHP.
+            <p>So you've got your table, you've got some data, and you think you're some hot stuff now.
+			Let's get in the zone to start querying some data! First, we'll have to connect to our data
+			base using the PDO connection.
 			</p>
             <hr>
-			<h2>MySQL table</h2>
-            <p>Let's begin by going ahead to our chosen MySQL interface. My preference is of course
-				the well renowned PHPMyAdmin, for its simple graphical interface, however any will 
-				work for our purpose, as long as you are able to execute MySQL commands. Feel free
-				to use the command line interafce for that.
+			<h2>Connecting</h2>
+            <p>Usually, we code in our connection commands at the top of the file, so that any code we do using
+			the database connection can be executed without calling the connection in line. What we do to begin
+			is create a database connection object. We can do this like so:
 			</p>
+			<pre><code>	
+	//We start by creating holder variables to help us
+	//read the code. 
+	//You will enter the right information as you see fit.
+	$dbhost = 'yourhost.url.orlocation';
+	$dbname = 'yourdatabasename';
+	$dbuser = 'yourusername';
+	$dbpass = 'yourdatabasepassword';
+	
+	//This line will create the new connection object.
+	//I like to name it $pdo so I remember what it is.
+	
+	$pdo = new PDO('mysql:host='.$dbhost.';dbname='.$dbname.';charset=utf-8',$dbuser,$dbpass);
+	
+	//These next two lines are not necessary, but I
+	//prefer to have these settings in place. These
+	//will help prevent errors from breaking your
+	//website. Well will cover these in detail later.
+	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+    </code></pre>
+	
 			<p>
-			Go to your chosen SQL command executor and run the following code to create the table we'll
-			be using to produce desired outputs.
+			With these in place, go ahead and reload your webpage! If there are no errors,
+			this means that you did not have any syntax errors! That's great! We will go ahead
+			and do a quick check to make sure that we have actually connected correctly. To do
+			this, go ahead and try adding the following line of code any where below the 
 			</p>
-			<pre><code>CREATE TABLE Demotable(
-			id INT(6) AUTO_INCREMENT PRIMARY KEY,
-			name VARCHAR(30) NOT NULL,
-			location VARCHAR(30) NOT NULL,
-			color VARCHAR(30) NOTNULL
-			)</code></pre>
-            <p>You should now have a table successfully created in your database! Let's go ahead
-			and create a few entries so we have data to play around with.
-			</p>
-			<p>Execute something similar to the following commands to get some data in there!</p>
-			<pre><code>INSERT INTO Demotable (name, location, color) VALUES ('Marth', 'Fire Emblem', 'Blue');
-
-INSERT INTO Demotable (name, location, color) VALUES ('Falcon', 'Zero-FX', 'NavyBlue');
-
-INSERT INTO Demotable (name, location, color) VALUES ('Fox', 'Corneria', 'Orange');
+			<pre><code>
+	$pdo->query('SELECT * from Demotables');
 			</code></pre>
-			<p>
-			Now you got some Sweet-ass data in the table! If everything ran without error here,
-			you're ready for the next section!
-			</p>
-			<h2>Your PHP Test Page</h2>
-            <p>A simple procedure here, just go ahead and navigate to your webspace, and 
-			create a php file, we'll name it, testpage.php. For now you can add one line and navigate to
-			its location to make sure everything is correct.
-			</p>
-			<pre><code>echo 'I am alive and working! Woohoo!';</code></pre>
-			
-			<p>
-			Navigate to your new page at http://www.yourdomainspace.com/yourpath/testpage.php. If you
-			can see the statement then we are set for the next step!
-			</p>
-			<h2>Check your PHP Version</h2>
-            <p>In order for you to have access to the correct PDO library, you will need the most
-			recent version of PHP installed. To keep this guide timeless, I won't say what version
-			I am running, but I will say that if your version is older than 5.1, you will not have
-			access to the PDO library. To check your PHP version, add the following code line to your
-			testpage.php and navigate to our page again.
-			
-			</p>
-			<pre><code>echo 'Current PHP version: ' . phpversion();</code></pre>
-			<p>Given you entered everything correctly, your PHP version should now be displayed
-			by your first statement! Compare this to the internets most recent version of PHP, and
-			proceed to update if possible. Once this is all done, let's get started using these PDO's!
+            <p>Now go ahead and reload your web page. If no errors appear, you've done it! 
+			You're in your database and ready to do some super fine queries! Let's move on
+			to the next section and learn about how to prepare you SQL text. 
 			</p>
            </div><!-- /.blog-post -->
 
           <nav>
             <ul class="pager">
               <li><a href="#">Previous</a></li>
-              <li><a href="conntut.html">Next</a></li>
+              <li><a href="preparedstatements.html">Next</a></li>
             </ul>
           </nav>
 
@@ -132,7 +119,7 @@ INSERT INTO Demotable (name, location, color) VALUES ('Fox', 'Corneria', 'Orange
             <ol class="list-unstyled">
               <li>Part 1:  <a href="setup.html">Setup</a></li>
               <li>Part 2:  <a href="conntut.html">Database connection</a></li>
-              <li><a href="#">January 2014</a></li>
+              <li>Part 3:  <a href="preparedstatements.html">Prepared Statements</a></li>
               <li><a href="#">December 2013</a></li>
               <li><a href="#">November 2013</a></li>
               <li><a href="#">October 2013</a></li>
