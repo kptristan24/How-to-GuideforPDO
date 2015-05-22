@@ -37,8 +37,10 @@
     <div class="container">
 
       <div class="blog-header">
-        <h1 class="blog-title">Prepared Statements and SQL Syntax!</h1>
-        <p class="lead blog-description">You've connected to the database...can we use our SQL yet?</p>
+        <h1 class="blog-title">More Statements and Stuff!</h1>
+        <p class="lead blog-description">At this point, you've got the idea of how PHP
+		data objects work on a basic level, let's take it to the next level!
+		</p>
       </div>
 
       <div class="row">
@@ -46,21 +48,20 @@
         <div class="col-sm-8 blog-main">
 
           <div class="blog-post">
-            <h2 class="blog-post-title">Basic Insert Example</h2>
+            <h2 class="blog-post-title">Delete and Select Examples</h2>
             
 
-            <p>At this point you're feeling pretty good, your connection is online, your
-			table is online with some sweet ass data, your page is live, things are looking good!
-			Well, this is probably the hardest part but don't worry, me and will figure it out. We'll
-			do each line one at a time, discussing what it's purpose is.
+            <p>Now we're going to go over two more fairly common examples of when to
+			use PDO for MySQL queries, DELETE and SELECT. Delete is pretty straight forward
+			but we'll go ahead and run by it. The fun stuff is when we start using selects,
+			and would like to see our data come bac
 			</p>
             <hr>
-			<h2>Writing your SQL statement in a PHP variable</h2>
+			<h2>Delete SQL Command</h2>
             <p>Here you take your normal SQL statement, and fit it into a PHP variable
 			as a string. Like so:
 			</p>
-			<pre><code>$sql = "INSERT INTO Demotables (name, location, color)
-	VALUES ('Roy', 'Fire-Emblem', 'Red');";
+			<pre><code>$sql = "DELETE FROM Demotables WHERE name='Roy';";"
 			</code></pre>
 			<hr>
 			<h2>Creating a prepared SQL statement Object</h2>
@@ -81,18 +82,58 @@
 			</code></pre>
 			
 			<hr>
-			<h2>And like magic...</h2>
-            <p>You've done it! You did a simple insert into your database. Not so hard right?
-			play around with these for a minute and try a few more adds, even see what happens
-			when it errors, use an incorrect syntax etc. If you're feeling ready for the big boi
-			step, we'll move onto getting a data object returned from queries, such as SELECT...
+			<h2>Now it get's good...Select</h2>
+            <p>So you're pretty good on statements where you don't really need any output
+			back from your database. Well, what if you do? Sometimes you want to populate a list
+			on your site, or have access to this data for some other PHP functions, you'll need your
+			data back from your Query! Let's look at how we do that with SELECT.
 			</p>
+			
+			<hr>
+			<h2>First, write the SQL into a variable and prepare again.</h2>
+			<p>Just like usual, go ahead and write it in as a string, with
+			the select query you'd like to run. For easiness of this demo,
+			im just going to select everything.
+			</p>
+			<pre><code>$sql = "SELECT * FROM Demotable;";
+	$query = $pdo->prepare($sql);
+			</code></pre>
+			
+			<hr>
+			<h2>Execute storing result as data object</h2>
+			<p>This is where it gets fun! This time, we will be using execute() again,
+			but we will store the result in it's own variable. The processor will
+			recognize this variable as a data object, and as such we can do fun things with 
+			it. Try this!</p>
+			<pre><code>$result = $query->execute($sql);
+			</code></pre>
+			
+			<hr>
+			<h2>Retreiving the data with $row</h2>
+			<p>We now have our data stored in $result, but you'll notice that you can't
+			simply echo $result, or you'll get a bunch of garbage. This is because it is
+			a data object, and to get the data from it you must use the proper calls. You can
+			loop through all the data you got like this:
+			<pre><code>foreach($result as $row){
+	echo 'Name:' . $row['name'];
+	echo 'Location: ' . $row['location'];
+	echo 'Color: ' . $row['color'];
+				
+	}
+			</code></pre>
+			<p> Voila! It's like magic how well that worked, right? You now have
+			all the power in the world at your finger tips, you can do all sorts
+			of crazy SQL statements, database interactions, and beautiful data
+			outputs. Behind the scene data processing is fun no? If you're feeling
+			ready, I'll show you some advanced tricks and tips in the next section.
+			Be warned, you'll need a seatbelt.
+			
            </div><!-- /.blog-post -->
 
           <nav>
             <ul class="pager">
-              <li><a href="conntut.html">Previous</a></li>
-              <li><a href="morestatements.html">Next</a></li>
+              <li><a href="preparedstatements.html">Previous</a></li>
+              <li><a href="advancedish.html">Next</a></li>
             </ul>
           </nav>
 

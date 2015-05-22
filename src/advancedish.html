@@ -29,7 +29,7 @@
     <div class="blog-masthead">
       <div class="container">
         <nav class="blog-nav">
-          <a class="blog-nav-item" href="index.html">Home</a>
+          <a class="blog-nav-item active" href="index.html">Home</a>
         </nav>
       </div>
     </div>
@@ -37,8 +37,10 @@
     <div class="container">
 
       <div class="blog-header">
-        <h1 class="blog-title">Prepared Statements and SQL Syntax!</h1>
-        <p class="lead blog-description">You've connected to the database...can we use our SQL yet?</p>
+        <h1 class="blog-title">Advanced Level Uses!</h1>
+        <p class="lead blog-description">Alright hot stuff, think you got it? Think you can
+		handle the next level? Got the scars of battle lining your face like a grown beard?
+		</p>
       </div>
 
       <div class="row">
@@ -46,53 +48,76 @@
         <div class="col-sm-8 blog-main">
 
           <div class="blog-post">
-            <h2 class="blog-post-title">Basic Insert Example</h2>
+            <h2 class="blog-post-title">Making your things dymnamic to input</h2>
             
 
-            <p>At this point you're feeling pretty good, your connection is online, your
-			table is online with some sweet ass data, your page is live, things are looking good!
-			Well, this is probably the hardest part but don't worry, me and will figure it out. We'll
-			do each line one at a time, discussing what it's purpose is.
+            <p>What makes this a powerful tool in my opinion, is that it is very easy
+			to change you SQL alone, and still keep the rest of the code functioning as 
+			it should. Here's an example of you using user input to alter your SQL statements!
 			</p>
             <hr>
-			<h2>Writing your SQL statement in a PHP variable</h2>
-            <p>Here you take your normal SQL statement, and fit it into a PHP variable
-			as a string. Like so:
+			<h2>Querying off of User Input</h2>
+            <p>Go ahead and take some user input, and just concatonate it into the string for
+			your SQL! It'll be great!
 			</p>
-			<pre><code>$sql = "INSERT INTO Demotables (name, location, color)
-	VALUES ('Roy', 'Fire-Emblem', 'Red');";
+			<pre><code>echo 'Query Based off of:
+	&lt;form action=&quot;yourpage.html&quot; method=&quot;post&quot;&gt;
+		&lt;div class=&quot;input-group&quot;&gt;
+		&lt;input type=&quot;text&quot; name=&quot;input&quot; class=&quot;form-control&quot; placeholder=&quot;Roy, Marth, Fox&quot; aria-describedby=&quot;basic-addon1&quot; required&gt;
+&lt;/div&gt;
+&lt;button type=&quot;submit&quot; class=&quot;btn btn-default&quot;&gt;Submit&lt;/button&gt;
+&lt;/form&gt;';
 			</code></pre>
 			<hr>
-			<h2>Creating a prepared SQL statement Object</h2>
+			<h2>Injecting Post variables into your SQL Statement</h2>
 			<p>
-			Next well go ahead and run the prepare() function on the variable you
-			just created. This turns your string into a prepared SQL statement object.
-			Doing this allows you to use the execute() function. We'll look at that in the
-			next step. For now, add this to prepare the statement.
+			Now we've got user data in our $_POST['input'], let's toss into
+			our SQL statement with concatonation, and Query off of it!
 			</p>
-			<pre><code>$query = $pdo->prepare($sql);
-			</code></pre>
-			<hr>
-			<h2>Execute the command</h2>
-            <p>This is the simple command to execute the SQL you have prepared. Running
-				execute() will send the code to your web database and execute it there.
-			</p>
-			<pre><code>$query->execute();
-			</code></pre>
+			<pre><code>$sql = "SELECT * FROM Demotable WHERE name='. $_POST['input'] .';";
+	
+	$query = $pdo->prepare($sql);
+	$result = $query->execute($sql);
 			
+			</code></pre>
 			<hr>
-			<h2>And like magic...</h2>
-            <p>You've done it! You did a simple insert into your database. Not so hard right?
-			play around with these for a minute and try a few more adds, even see what happens
-			when it errors, use an incorrect syntax etc. If you're feeling ready for the big boi
-			step, we'll move onto getting a data object returned from queries, such as SELECT...
+			<h2>Dynamically populating a Table from User input</h2>
+            <p>This is my favourite use, is using the data we just queried to populate
+			a table or list. This can be used in almost anyway imaginable, so be creative!
+			Here I'll show how you can do this with a simple table. Note, I use my own table
+			styling here, you can always trim it down.
 			</p>
+			<pre><code>echo &quot;&lt;div class=&#39;container-fluid&#39;&gt;
+&lt;table class=&#39;table table-striped&#39;&gt;
+	&lt;thead&gt;
+		&lt;tr&gt;
+			&lt;th&gt;Name&lt;/th&gt;
+			&lt;th&gt;Color&lt;/th&gt;
+			&lt;th&gt;Location&lt;/th&gt;
+		&lt;/tr&gt;
+	&lt;/thead&gt;&quot;;
+			</code></pre>
+			<p>Then we'll add the PHP code part, to echo out our data with html included!
+			This will generate a sweet table.</p>
+			<pre><code>foreach($result as $row) {
+    echo &quot;&lt;tr&gt;&quot;;
+		echo &quot;&lt;td&gt;&quot; . $row[&#39;name&#39;] . &quot;&lt;/td&gt;&quot;;
+		echo &quot;&lt;td&gt;&quot; . $row[&#39;color&#39;] . &quot;&lt;/td&gt;&quot;;
+		echo &quot;&lt;td&gt;&quot; . $row[&#39;location&#39;] . &quot;&lt;/td&gt;&quot;;
+		echo &quot;&lt;/tr&gt;&quot;;
+}
+echo &quot;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&quot;;
+			</pre></code>
+			<p> Neato! You've just made your first PDO based dynamic table! Show this to your mom,
+			she will be impressed. As far as what I have time to show you, this is about it. Play around,
+			be creative, you now have everything you need to succeed when using PDO's, and remember, 
+			don't get frustrated when it doesn't work, you'll figure it out! Have a great day.
+			
            </div><!-- /.blog-post -->
 
           <nav>
             <ul class="pager">
-              <li><a href="conntut.html">Previous</a></li>
-              <li><a href="morestatements.html">Next</a></li>
+              <li><a href="morestatements.html">Previous</a></li>
             </ul>
           </nav>
 
